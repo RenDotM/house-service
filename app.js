@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require('express');
 
 const app = express();
@@ -16,7 +18,7 @@ const route = require('./routes/house');
 app.use('/houses', route);
 
 // Connect to DB 
-mongoose.connect(process.env.DB_CONNECTION, 
+mongoose.connect(process.env.DB_CONNECTION || 'mongodb://localhost:27020/test',
 	{ useNewUrlParser: true, useUnifiedTopology: true }, 
 	() => console.log('connect to db')
 );

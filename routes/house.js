@@ -1,10 +1,10 @@
-const express = require("express");
+const express = require('express');
 
 const router = express.Router();
-const House = require("../models/House");
+const House = require('../models/House');
 
 // get all houses
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const houses = await House.find();
     res.json(houses);
@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 });
 
 // get specific house by id
-router.get("/:houseId", async (req, res) => {
+router.get('/:houseId', async (req, res) => {
   try {
     const house = await House.findById(req.params.houseId);
     res.json(house);
@@ -24,7 +24,7 @@ router.get("/:houseId", async (req, res) => {
 });
 
 // post new house
-router.post("/", async (req, res) => {
+router.post('/', async (req, res) => {
   const house = new House({
     street: req.body.street,
     city: req.body.city,
@@ -44,7 +44,7 @@ router.post("/", async (req, res) => {
 });
 
 // update house by patch
-router.patch("/:houseId", async (req, res) => {
+router.patch('/:houseId', async (req, res) => {
   try {
     const updatedHouse = await House.updateOne(
       { _id: req.params.houseId },
@@ -67,7 +67,7 @@ router.patch("/:houseId", async (req, res) => {
 });
 
 // update house by put
-router.put("/:houseId", async (req, res) => {
+router.put('/:houseId', async (req, res) => {
   try {
     const updatedHouse = await House.updateOne(
       { _id: req.params.houseId },
@@ -90,10 +90,20 @@ router.put("/:houseId", async (req, res) => {
 });
 
 // delete house by id
-router.delete("/:houseId", async (req, res) => {
+router.delete('/:houseId', async (req, res) => {
   try {
     const removedHouse = await House.remove({ _id: req.params.houseId });
     res.json(removedHouse);
+  } catch (err) {
+    res.json({ message: err });
+  }
+});
+
+// get all houses by User Id
+router.get('/:userId', async (req, res) => {
+  try {
+    const houses = await House.find({ landlord_id: req.params.userId });
+    res.json(houses);
   } catch (err) {
     res.json({ message: err });
   }

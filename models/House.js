@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const HouseSchema = mongoose.Schema({
   // address: {
@@ -46,4 +46,4 @@ const HouseSchema = mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model("Houses", HouseSchema);
+module.exports = mongoose.model('Houses', HouseSchema);

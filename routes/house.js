@@ -23,6 +23,26 @@ router.get('/:houseId', async (req,res) => {
 	}
 });
 
+// get specific house by house/houseId
+router.get('/house/:houseId', async (req,res) => {
+	try{
+		const house = await House.findById(req.params.houseId);
+		res.json(house);
+	} catch(err) {
+		res.json({message: err});
+	}
+});
+
+// get specific house by user/userId
+router.get('/user/:userId', async (req,res) => {
+	try{
+		const house = await House.find({landlord_id: req.params.userId});
+		res.json(house);
+	} catch(err) {
+		res.json({message: err});
+	}
+});
+
 // post new house
 router.post('/', async (req,res) => {
 	const house = new House({
